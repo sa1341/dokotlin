@@ -1,22 +1,21 @@
-package com.yolo.dokotlin.global.entity
+package com.yolo.dokotlin.global.common.model
 
 import org.springframework.data.domain.PageRequest
-import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Sort
 
-class PageRequest private constructor(_page: Int = 1, _size: Int = 10, _direction: Sort.Direction = Sort.Direction.ASC){
-    var page: Int = _page
+class PageRequest {
+    var page: Int = 1
         set(value) {
             field = if (value <= 0) 1 else value
         }
 
-    var size: Int = _size
+    var size: Int = 10
         set(value) {
             println("value: $value")
             field = if (value > DEFAULT_MAX_SIZE) DEFAULT_SIZE else value
          }
 
-    var direction: Sort.Direction = _direction
+    var direction: Sort.Direction = Sort.Direction.ASC
 
     companion object {
         const val DEFAULT_SIZE = 10
@@ -24,6 +23,6 @@ class PageRequest private constructor(_page: Int = 1, _size: Int = 10, _directio
     }
 
     fun of(): PageRequest {
-        return PageRequest.of(page - 1, size, direction)
+        return PageRequest.of(page - 1, size, direction, "createdDate")
     }
 }

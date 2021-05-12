@@ -1,4 +1,4 @@
-package com.yolo.dokotlin.global.entity
+package com.yolo.dokotlin.global.common.model
 
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedDate
