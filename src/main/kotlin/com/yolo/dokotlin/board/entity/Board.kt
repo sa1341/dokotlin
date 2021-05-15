@@ -6,7 +6,7 @@ import javax.persistence.*
 
 @Table(name = "board")
 @Entity
-class Board private constructor(
+class Board(
     _author: String,
     _title: String,
     _content: String
@@ -42,5 +42,10 @@ class Board private constructor(
 
     fun toRes(): BoardDto.Res {
         return BoardDto.Res(author, title, content)
+    }
+
+    fun updateStatus(updateForm: BoardDto.UpdateForm) {
+        this.title = updateForm.title
+        this.content = updateForm.content
     }
 }

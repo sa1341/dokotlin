@@ -1,16 +1,33 @@
 package com.yolo.dokotlin.board.model
 
 import com.yolo.dokotlin.board.entity.Board
+import javax.validation.constraints.NotBlank
+import javax.validation.constraints.Size
 
-class BoardDto(val author: String, val title: String, val content: String) {
+data class BoardDto(
 
+    @field:NotBlank
+    var author: String,
+
+    @field:NotBlank
+    var title: String,
+
+    @field:NotBlank
+    @field:Size(min = 2, max = 1000, message = "본문은 2~30자 이내여야 합니다.")
+    var content: String,
+
+    ) {
     fun toEntity(): Board {
         return Board.of(author, title, content)
     }
 
-    override fun toString(): String {
-        return "BoardDto(author='$author', title='$title', content='$content')"
-    }
+    class UpdateForm(
+        @field:NotBlank
+        val title: String,
+        @field:NotBlank
+        @field:Size(min = 2, max = 1000, message = "본문은 2~30자 이내여야 합니다.")
+        val content: String
+    )
 
     class Res(val author: String, val title: String, val content: String)
 }
