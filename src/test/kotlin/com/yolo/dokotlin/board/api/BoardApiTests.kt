@@ -1,40 +1,26 @@
 package com.yolo.dokotlin.board.api
 
-import org.junit.jupiter.api.BeforeEach
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.yolo.dokotlin.board.model.BoardDto
+import com.yolo.dokotlin.doc.ApiDocumentUtils
+import com.yolo.dokotlin.doc.ApiDocumentUtils.Companion.getDocumentRequest
+import com.yolo.dokotlin.doc.ApiDocumentUtils.Companion.getDocumentResponse
+import com.yolo.dokotlin.doc.RestDocumentTests
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.junit.jupiter.SpringExtension
-import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.MockMvcBuilder
+import org.springframework.http.MediaType
+import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document
+import org.springframework.restdocs.payload.JsonFieldType
+import org.springframework.restdocs.payload.PayloadDocumentation.*
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
-import org.springframework.test.web.servlet.setup.DefaultMockMvcBuilder
-import org.springframework.test.web.servlet.setup.MockMvcBuilders
-import org.springframework.web.context.WebApplicationContext
-import org.springframework.web.filter.CharacterEncodingFilter
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
-@ExtendWith(SpringExtension::class)
+
 @SpringBootTest
-@AutoConfigureMockMvc
-class BoardApiTests {
-
-     @Autowired
-     lateinit var mockMvc: MockMvc
-
-    @Autowired
-    lateinit var ctx: WebApplicationContext
-
-    @BeforeEach
-    fun setUp() {
-        mockMvc = MockMvcBuilders.webAppContextSetup(ctx)
-            .addFilter<DefaultMockMvcBuilder?>(CharacterEncodingFilter("UTF-8", true))
-            .build()
-    }
+class BoardApiTests : RestDocumentTests() {
 
     @DisplayName("WebMvc Controller 테스트")
     @Test
@@ -45,12 +31,56 @@ class BoardApiTests {
         // when / then
         mockMvc.perform(
             get("/api/v1/boards/test")
-        ).andExpect (
+        ).andExpect(
             status().isOk
-        ).andExpect (
+        ).andExpect(
             jsonPath("$.author").value("임준영")
         ).andExpect(
             jsonPath("$.title").value("람다 떡상 가즈아")
-        ).andDo(print())
+        ).andDo(
+            document(
+                "board",
+                responseFields(
+                    fieldWithPath("author")
+                        .description("Board's User"),
+                    fieldWithPath("title").description("Board's Title"),
+                    fieldWithPath("content").description("Board's Content")
+                )
+            )
+        );
+    }
+
+    @Test
+    fun 게시판을_저장한다() {
+        // given
+        val mapper = ObjectMapper()
+
+        val boardDto = BoardDto("임준영", "람다 가즈아!", "조만간 오를거야 화이팅!!")
+        val content = mapper.writeValueAsString(boardDto)
+
+        // when
+        mockMvc.perform(
+            post("/api/v1/boards")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(content)
+        ).andExpect(
+                jsonPath("$.author").value(boardDto.author)
+        ).andExpect(
+                jsonPath("$.title").value(boardDto.title)
+        ).andDo(
+            document("board/save-api",
+            getDocumentRequest(),
+            getDocumentResponse(),
+            requestFields(
+                fieldWithPath("author").type(JsonFieldType.STRING).description("게시판 작성자"),
+                fieldWithPath("title").type(JsonFieldType.STRING).description("게시판 제목"),
+                fieldWithPath("content").type(JsonFieldType.STRING).description("게시판 내용")
+            ),
+            responseFields(
+                fieldWithPath("author").type(JsonFieldType.STRING).description("게시판 작성자"),
+                fieldWithPath("title").type(JsonFieldType.STRING).description("게시판 제목"),
+                fieldWithPath("content").type(JsonFieldType.STRING).description("게시판 내용")
+            ))
+        )
     }
 }

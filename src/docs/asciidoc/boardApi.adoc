@@ -1,0 +1,27 @@
+ifndef::snippets[]
+:snippets: ../../../build/generated-snippets
+endif::[]
+:doctype: Board-API
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+:operation-http-request-title: Example Request
+:operation-http-response-title: Example Response
+
+[[resources]]
+= Board
+
+[[resources-Board]]
+== Board
+
+[[resources-Board]]
+=== Board 조회 API
+
+==== Request Parameter 명세서
+include::{snippets}/board/http-request.adoc[]
+
+==== Response Body 명세서
+include::{snippets}/board/http-response.adoc[]
+

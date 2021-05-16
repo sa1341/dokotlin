@@ -2,6 +2,8 @@ package com.yolo.dokotlin.board.entity
 
 import com.yolo.dokotlin.board.model.BoardDto
 import com.yolo.dokotlin.global.common.model.BaseTimeEntity
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import javax.persistence.*
 
 @Table(name = "board")
@@ -27,8 +29,7 @@ class Board(
     @Column(name = "content", nullable = false)
     var content: String = _content
         protected set
-
-
+    
     @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], mappedBy = "board")
     var replies: MutableList<Reply> = mutableListOf()
 
@@ -41,7 +42,13 @@ class Board(
     }
 
     fun toRes(): BoardDto.Res {
-        return BoardDto.Res(author, title, content)
+        val createdAt = parseDateTimeToStr(createdDate)
+        val updatedAt = parseDateTimeToStr(modifiedDate)
+        return BoardDto.Res(id, author, title, content, createdAt, updatedAt)
+    }
+
+    fun parseDateTimeToStr(localDateTime: LocalDateTime?): String? {
+        return localDateTime?.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
     }
 
     fun updateStatus(updateForm: BoardDto.UpdateForm) {

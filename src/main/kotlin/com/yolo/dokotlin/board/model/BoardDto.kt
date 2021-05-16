@@ -29,5 +29,5 @@ data class BoardDto(
         val content: String
     )
 
-    class Res(val author: String, val title: String, val content: String)
+    class Res(val id: Long?, val author: String, val title: String, val content: String, val createdAt: String?, val updatedAt: String?)
 }

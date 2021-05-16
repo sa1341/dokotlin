@@ -36,9 +36,9 @@ class BoardApi(
     }
 
    @PostMapping
-    fun save(@RequestBody @Valid boardDto: BoardDto): ResponseEntity<String> {
+    fun save(@RequestBody @Valid boardDto: BoardDto): ResponseEntity<BoardDto> {
         boardService.save(boardDto)
-        return ResponseEntity.ok(boardDto.toString())
+        return ResponseEntity.ok(boardDto)
     }
 
     @PutMapping(path = ["/{id}"])
