@@ -2,7 +2,6 @@ package com.yolo.dokotlin.board.api
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.yolo.dokotlin.board.model.BoardDto
-import com.yolo.dokotlin.doc.ApiDocumentUtils
 import com.yolo.dokotlin.doc.ApiDocumentUtils.Companion.getDocumentRequest
 import com.yolo.dokotlin.doc.ApiDocumentUtils.Companion.getDocumentResponse
 import com.yolo.dokotlin.doc.RestDocumentTests
@@ -11,10 +10,15 @@ import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document
+import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders
 import org.springframework.restdocs.payload.JsonFieldType
 import org.springframework.restdocs.payload.PayloadDocumentation.*
+import org.springframework.restdocs.request.RequestDocumentation
+import org.springframework.restdocs.request.RequestDocumentation.*
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers.*
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
@@ -82,5 +86,41 @@ class BoardApiTests : RestDocumentTests() {
                 fieldWithPath("content").type(JsonFieldType.STRING).description("게시판 내용")
             ))
         )
+    }
+
+    @Test
+    fun 게시판과_댓글을_조회한다() {
+        //given
+        val id = 20
+
+        // when
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/api/v1/boards/{id}/replies", id))
+            .andExpect(status().isOk)
+            // then
+            .andDo(print())
+            .andDo(
+                document("board/getReplies",
+                    getDocumentRequest(),
+                    getDocumentResponse(),
+                    pathParameters(
+                        parameterWithName("id").description("게시글 아이디")
+                    ),
+                    responseFields(
+                        fieldWithPath("id").type(JsonFieldType.NUMBER).description("게시판 아이디"),
+                        fieldWithPath("author").type(JsonFieldType.STRING).description("게시판 작성자"),
+                        fieldWithPath("title").type(JsonFieldType.STRING).description("게시판 제목"),
+                        fieldWithPath("content").type(JsonFieldType.STRING).description("게시판 내용"),
+                        fieldWithPath("createdAt").type(JsonFieldType.STRING).description("게시판 생성 날짜"),
+                        fieldWithPath("updatedAt").type(JsonFieldType.STRING).description("게시판 수정 날짜"),
+
+                        fieldWithPath("replies.[].id").type(JsonFieldType.NUMBER).description("댓글 아이디"),
+                        fieldWithPath("replies.[].author").type(JsonFieldType.STRING).description("댓글 작성자"),
+                        fieldWithPath("replies.[].title").type(JsonFieldType.STRING).description("댓글 제목"),
+                        fieldWithPath("replies.[].content").type(JsonFieldType.STRING).description("댓글 내용"),
+                        fieldWithPath("replies.[].createdAt").type(JsonFieldType.STRING).description("댓글 생성 날짜"),
+                        fieldWithPath("replies.[].updatedAt").type(JsonFieldType.STRING).description("댓글 수정 날짜")
+                    ))
+            )
+
     }
 }

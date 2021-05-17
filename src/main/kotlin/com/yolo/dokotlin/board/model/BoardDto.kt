@@ -1,5 +1,6 @@
 package com.yolo.dokotlin.board.model
 
+import com.yolo.dokotlin.board.dto.ReplyDto
 import com.yolo.dokotlin.board.entity.Board
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Size
@@ -29,5 +30,11 @@ data class BoardDto(
         val content: String
     )
 
-    class Res(val id: Long?, val author: String, val title: String, val content: String, val createdAt: String?, val updatedAt: String?)
+    class Res(val id: Long?, val author: String, val title: String, val content: String, val createdAt: String?, val updatedAt: String?) {
+        var replies: MutableList<ReplyDto> = mutableListOf()
+
+        fun addReplies(replies: MutableList<ReplyDto>) {
+            this.replies = replies
+        }
+    }
 }

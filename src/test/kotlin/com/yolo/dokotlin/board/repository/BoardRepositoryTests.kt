@@ -5,6 +5,8 @@ import com.querydsl.jpa.impl.JPAQueryFactory
 import com.yolo.dokotlin.board.entity.Board
 import com.yolo.dokotlin.board.entity.QBoard.board
 import com.yolo.dokotlin.board.entity.Reply
+import com.yolo.dokotlin.board.repository.support.BoardSearchService
+import com.yolo.dokotlin.board.repository.support.ReplySearchService
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -22,6 +24,9 @@ class BoardRepositoryTests {
 
     @Autowired
     lateinit var boardRepository: BoardRepository
+
+    @Autowired
+    lateinit var replySearchService: ReplySearchService
 
     @Autowired
     lateinit var queryFactory: JPAQueryFactory
@@ -84,5 +89,25 @@ class BoardRepositoryTests {
         println("board: ${findBoard?.title}")
         println("board: ${findBoard?.content}")
     //assertThat(findBoard.replies).extracting("author").contains("배성탑")
+    }
+
+    @Test
+    fun 게시글_및_댓글을_함께_조회한다() {
+
+        // given
+        var board = Board.of("임준영", "람다 떡상 가즈아", "하하하 어딜가야하오...")
+        var reply1 = Reply.of("배성탑", "도지코인 떡상 가즈아", "머스크형 날구해줘")
+        var reply2 = Reply.of("오영선", "목대 동창회 모집 고고씽", "회장은 오영선, 총무는 이재동입니다.")
+
+        reply1.addBoard(board)
+        reply2.addBoard(board)
+        boardRepository.save(board)
+
+        // when
+        val result = replySearchService.getBoardWithReplies(board.id)
+
+        // then
+        assertThat(result?.author).isEqualTo("임준영")
+        assertThat(result?.replies).extracting("title").contains("도지코인 떡상 가즈아")
     }
 }

@@ -17,17 +17,17 @@ endif::[]
 == 게시판 도메인
 
 [[resources-Board]]
-=== 게시판 저장 API
+=== 게시판 댓글 조회 API
 
-==== Request Body 필드 명세서
-include::{snippets}/board/save-api/request-fields.adoc[]
+==== Request 요청 명세서
+include::{snippets}/board/getReplies/http-request.adoc[]
 
-==== Request Body 명세서
-include::{snippets}/board/save-api/http-request.adoc[]
+==== Request URL Path 변수 명세서
+include::{snippets}/board/getReplies/path-parameters.adoc[]
 
 ==== Response Body 필드 명세서
-include::{snippets}/board/save-api/response-fields.adoc[]
+include::{snippets}/board/getReplies/response-fields.adoc[]
 
 ==== Response Body 명세서
-include::{snippets}/board/save-api/http-response.adoc[]
+include::{snippets}/board/getReplies/http-response.adoc[]
 
