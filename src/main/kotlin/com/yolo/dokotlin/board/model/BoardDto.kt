@@ -1,7 +1,7 @@
 package com.yolo.dokotlin.board.model
 
-import com.yolo.dokotlin.board.dto.ReplyDto
 import com.yolo.dokotlin.board.entity.Board
+import com.yolo.dokotlin.reply.dto.ReplyDto
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Size
 

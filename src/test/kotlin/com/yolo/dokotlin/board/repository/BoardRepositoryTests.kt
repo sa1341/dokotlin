@@ -4,9 +4,8 @@ import com.querydsl.core.BooleanBuilder
 import com.querydsl.jpa.impl.JPAQueryFactory
 import com.yolo.dokotlin.board.entity.Board
 import com.yolo.dokotlin.board.entity.QBoard.board
-import com.yolo.dokotlin.board.entity.Reply
-import com.yolo.dokotlin.board.repository.support.BoardSearchService
-import com.yolo.dokotlin.board.repository.support.ReplySearchService
+import com.yolo.dokotlin.reply.entity.Reply
+import com.yolo.dokotlin.reply.repository.ReplySearchService
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -40,7 +39,6 @@ class BoardRepositoryTests {
         // when
         boardRepository.save(board)
     }
-
 
     @Test
     fun 게시판을_저장한다() {
@@ -104,7 +102,7 @@ class BoardRepositoryTests {
         boardRepository.save(board)
 
         // when
-        val result = replySearchService.getBoardWithReplies(board.id)
+        val result = board.id?.let { replySearchService.getBoardWithReplies(it) }
 
         // then
         assertThat(result?.author).isEqualTo("임준영")

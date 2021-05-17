@@ -4,9 +4,9 @@ import com.yolo.dokotlin.board.dto.BoardSearchType
 import com.yolo.dokotlin.board.entity.Board
 import com.yolo.dokotlin.board.model.BoardDto
 import com.yolo.dokotlin.board.repository.support.BoardSearchService
-import com.yolo.dokotlin.board.repository.support.ReplySearchService
 import com.yolo.dokotlin.board.service.BoardService
 import com.yolo.dokotlin.global.common.model.PageRequest
+import com.yolo.dokotlin.reply.repository.ReplySearchService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -20,8 +20,7 @@ import javax.validation.Valid
 @RestController
 class BoardApi(
     @Autowired private val boardService: BoardService,
-    @Autowired private val boardSearchService: BoardSearchService,
-    @Autowired private val replySearchService: ReplySearchService
+    @Autowired private val boardSearchService: BoardSearchService
 ) {
 
     val logger: Logger = LoggerFactory.getLogger(this.javaClass)
@@ -35,13 +34,6 @@ class BoardApi(
     fun getBoard(@PathVariable(value = "id") id: Long): ResponseEntity<BoardDto.Res?> {
         logger.debug("id: [{}]", id)
         val boardRes = boardService.findBoardById(id)
-        return ResponseEntity.ok(boardRes)
-    }
-
-    @GetMapping(path = ["/{id}/replies"])
-    fun getReplies(@PathVariable(value = "id") id: Long): ResponseEntity<BoardDto.Res?> {
-        logger.debug("id: {}", id)
-        val boardRes = replySearchService.getBoardWithReplies(id)
         return ResponseEntity.ok(boardRes)
     }
 

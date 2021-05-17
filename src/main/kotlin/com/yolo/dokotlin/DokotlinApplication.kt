@@ -1,8 +1,8 @@
 package com.yolo.dokotlin
 
 import com.yolo.dokotlin.board.entity.Board
-import com.yolo.dokotlin.board.entity.Reply
 import com.yolo.dokotlin.board.repository.BoardRepository
+import com.yolo.dokotlin.reply.entity.Reply
 import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

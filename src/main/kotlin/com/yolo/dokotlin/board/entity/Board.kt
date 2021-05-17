@@ -2,6 +2,7 @@ package com.yolo.dokotlin.board.entity
 
 import com.yolo.dokotlin.board.model.BoardDto
 import com.yolo.dokotlin.global.common.model.BaseTimeEntity
+import com.yolo.dokotlin.reply.entity.Reply
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import javax.persistence.*

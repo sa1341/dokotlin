@@ -1,7 +1,8 @@
-package com.yolo.dokotlin.board.entity
+package com.yolo.dokotlin.reply.entity
 
-import com.yolo.dokotlin.board.dto.ReplyDto
+import com.yolo.dokotlin.board.entity.Board
 import com.yolo.dokotlin.global.common.model.BaseTimeEntity
+import com.yolo.dokotlin.reply.dto.ReplyDto
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import javax.persistence.*
@@ -47,11 +48,16 @@ class Reply private constructor(
         fun of(_author: String, _title: String, _content: String) = Reply(_author, _title, _content)
     }
 
-    fun toRes(): ReplyDto {
+    fun toDto(): ReplyDto {
         val createdAt = parseDateTimeToStr(createdDate);
         val updatedAt = parseDateTimeToStr(modifiedDate);
         return ReplyDto(id, author, title, content, createdAt, updatedAt);
     }
+
+    fun toRes(): ReplyDto.Res {
+        return ReplyDto.Res(id, author, title, content)
+    }
+
 
     fun parseDateTimeToStr(localDateTime: LocalDateTime?): String? {
         return localDateTime?.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
