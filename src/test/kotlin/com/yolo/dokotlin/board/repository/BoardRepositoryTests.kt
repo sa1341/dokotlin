@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.data.domain.PageRequest
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.transaction.annotation.Transactional
@@ -89,23 +90,4 @@ class BoardRepositoryTests {
     //assertThat(findBoard.replies).extracting("author").contains("배성탑")
     }
 
-    @Test
-    fun 게시글_및_댓글을_함께_조회한다() {
-
-        // given
-        var board = Board.of("임준영", "람다 떡상 가즈아", "하하하 어딜가야하오...")
-        var reply1 = Reply.of("배성탑", "도지코인 떡상 가즈아", "머스크형 날구해줘")
-        var reply2 = Reply.of("오영선", "목대 동창회 모집 고고씽", "회장은 오영선, 총무는 이재동입니다.")
-
-        reply1.addBoard(board)
-        reply2.addBoard(board)
-        boardRepository.save(board)
-
-        // when
-        val result = board.id?.let { replySearchService.getReplies(it) }
-
-        // then
-        assertThat(result?.author).isEqualTo("임준영")
-        assertThat(result?.replies).extracting("title").contains("도지코인 떡상 가즈아")
-    }
 }

@@ -87,40 +87,4 @@ class BoardApiTests : RestDocumentTests() {
             ))
         )
     }
-
-    @Test
-    fun 게시판과_댓글을_조회한다() {
-        //given
-        val id = 20
-
-        // when
-        mockMvc.perform(RestDocumentationRequestBuilders.get("/api/v1/boards/{id}/replies", id))
-            .andExpect(status().isOk)
-            // then
-            .andDo(print())
-            .andDo(
-                document("board/getReplies",
-                    getDocumentRequest(),
-                    getDocumentResponse(),
-                    pathParameters(
-                        parameterWithName("id").description("게시글 아이디")
-                    ),
-                    responseFields(
-                        fieldWithPath("id").type(JsonFieldType.NUMBER).description("게시판 아이디"),
-                        fieldWithPath("author").type(JsonFieldType.STRING).description("게시판 작성자"),
-                        fieldWithPath("title").type(JsonFieldType.STRING).description("게시판 제목"),
-                        fieldWithPath("content").type(JsonFieldType.STRING).description("게시판 내용"),
-                        fieldWithPath("createdAt").type(JsonFieldType.STRING).description("게시판 생성 날짜"),
-                        fieldWithPath("updatedAt").type(JsonFieldType.STRING).description("게시판 수정 날짜"),
-
-                        fieldWithPath("replies.[].id").type(JsonFieldType.NUMBER).description("댓글 아이디"),
-                        fieldWithPath("replies.[].author").type(JsonFieldType.STRING).description("댓글 작성자"),
-                        fieldWithPath("replies.[].title").type(JsonFieldType.STRING).description("댓글 제목"),
-                        fieldWithPath("replies.[].content").type(JsonFieldType.STRING).description("댓글 내용"),
-                        fieldWithPath("replies.[].createdAt").type(JsonFieldType.STRING).description("댓글 생성 날짜"),
-                        fieldWithPath("replies.[].updatedAt").type(JsonFieldType.STRING).description("댓글 수정 날짜")
-                    ))
-            )
-
-    }
 }
