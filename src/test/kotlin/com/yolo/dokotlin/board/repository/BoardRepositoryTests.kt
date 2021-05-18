@@ -5,7 +5,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory
 import com.yolo.dokotlin.board.entity.Board
 import com.yolo.dokotlin.board.entity.QBoard.board
 import com.yolo.dokotlin.reply.entity.Reply
-import com.yolo.dokotlin.reply.repository.ReplySearchService
+import com.yolo.dokotlin.reply.repository.support.ReplySearchService
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -102,7 +102,7 @@ class BoardRepositoryTests {
         boardRepository.save(board)
 
         // when
-        val result = board.id?.let { replySearchService.getBoardWithReplies(it) }
+        val result = board.id?.let { replySearchService.getReplies(it) }
 
         // then
         assertThat(result?.author).isEqualTo("임준영")

@@ -58,6 +58,10 @@ class Reply private constructor(
         return ReplyDto.Res(id, author, title, content)
     }
 
+    fun updateStatus(title: String, content: String) {
+        this.title = title
+        this.content = content
+    }
 
     fun parseDateTimeToStr(localDateTime: LocalDateTime?): String? {
         return localDateTime?.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))

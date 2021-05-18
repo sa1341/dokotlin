@@ -6,7 +6,6 @@ import com.yolo.dokotlin.board.model.BoardDto
 import com.yolo.dokotlin.board.repository.support.BoardSearchService
 import com.yolo.dokotlin.board.service.BoardService
 import com.yolo.dokotlin.global.common.model.PageRequest
-import com.yolo.dokotlin.reply.repository.ReplySearchService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
