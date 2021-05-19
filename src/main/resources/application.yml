@@ -29,7 +29,7 @@ logging:
 spring:
   profiles: local
   datasource:
-    url: jdbc:mariadb://192.168.0.4:3306/dokotlin
+    url: jdbc:mariadb://localhost:3306/dokotlin
     driver-class-name: org.mariadb.jdbc.Driver
     username: junyoung
     password: wnsdud@123
