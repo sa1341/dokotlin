@@ -8,6 +8,6 @@ class DokotlinApplicationTests {
 
 	@Test
 	fun contextLoads() {
-		println("Hello Kotlin!!")
+		println("Deployed Hello Kotlin!")
 	}
 }
