@@ -56,13 +56,13 @@ MariaDB 스키마 구조는 아래와 같습니다.
 ## 프로젝트 목차
 
 
-1. [표현 계층 구현 전략]()
+1. [step-01: 표현 계층 구현 전략](https://github.com/sa1341/kotlin-demo/blob/master/doc/%ED%91%9C%ED%98%84%20%EA%B3%84%EC%B8%B5%20%EA%B5%AC%ED%98%84%20%EC%A0%84%EB%9E%B5.md)
 
-2. [게시글 및 댓글 페이징 전략]()
+2. [step-02: 게시글 및 댓글 페이징 전략](https://github.com/sa1341/kotlin-demo/blob/master/doc/%EA%B2%8C%EC%8B%9C%EA%B8%80%20%EB%B0%8F%20%EB%8C%93%EA%B8%80%20%ED%8E%98%EC%9D%B4%EC%A7%95%20%EC%A0%84%EB%9E%B5.md)
 
-3. [Exception 전략]()
+3. [step-03: Exception 전략](https://github.com/sa1341/kotlin-demo/blob/master/doc/Exception%20%EC%A0%84%EB%9E%B5.md)
 
-4. [step-05: API 문서 관리]() 
+4. [step-04: API 문서 관리 전략](https://github.com/sa1341/kotlin-demo/blob/master/doc/REST%20API%20%EB%AC%B8%EC%84%9C%20%EA%B4%80%EB%A6%AC.md) 
 
 
 ## 프로젝트를 진행하면서 겪은 시행 착오
