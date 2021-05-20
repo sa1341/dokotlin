@@ -80,3 +80,5 @@ enum class ErrorCode(val status: Int, val message: String) {
 ```
 
 만약 새로운 에러 코드와 에러 메시지가 추가된다면 ErrorCode 클래스에서만 새롭게 상수를 추가하여 유지보수 측면에서 많은 이점을 누릴 수 있는 구조라고 생각됩니다.
+
+> 참조 사이트: https://cheese10yun.github.io/spring-guide-exception/ 
