@@ -2,7 +2,7 @@ package com.yolo.dokotlin.board.service
 
 import com.yolo.dokotlin.board.model.BoardDto
 import com.yolo.dokotlin.board.repository.BoardRepository
-import com.yolo.dokotlin.global.error.EntityNotFoundException
+import com.yolo.dokotlin.global.error.exception.EntityNotFoundException
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.data.repository.findByIdOrNull

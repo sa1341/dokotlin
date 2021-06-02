@@ -1,7 +1,7 @@
 package com.yolo.dokotlin.reply.service
 
 import com.yolo.dokotlin.board.repository.BoardRepository
-import com.yolo.dokotlin.global.error.EntityNotFoundException
+import com.yolo.dokotlin.global.error.exception.EntityNotFoundException
 import com.yolo.dokotlin.reply.dto.ReplyDto
 import com.yolo.dokotlin.reply.entity.Reply
 import com.yolo.dokotlin.reply.repository.ReplyRepository
