@@ -14,7 +14,8 @@ class Order private constructor(_member: Member, _orderItem: MutableList<OrderIt
     @Column(name = "order?_id")
     val id: Long? = null
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
     var member: Member = _member
 
     @Enumerated(EnumType.STRING)
