@@ -23,5 +23,4 @@ class Coupon private constructor(_name: String, _expiredAt: LocalDateTime): Base
             return Coupon(name, expiredAt)
         }
     }
-
 }

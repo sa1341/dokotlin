@@ -2,7 +2,13 @@ package com.yolo.dokotlin.coupon.entity
 
 import com.yolo.dokotlin.global.common.model.BaseTimeEntity
 import com.yolo.dokotlin.member.entity.Member
-import javax.persistence.*
+import javax.persistence.ManyToOne;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.JoinColumn;
+import javax.persistence.Id;
+import javax.persistence.GenerationType;
+import javax.persistence.FetchType;
 
 @Entity
 class CouponCode private constructor(_code: String, _coupon: Coupon, _member: Member): BaseTimeEntity() {
@@ -22,8 +28,16 @@ class CouponCode private constructor(_code: String, _coupon: Coupon, _member: Me
     var member: Member = _member
 
     companion object {
-        fun of(code: String, coupon: Coupon): CouponCode {
-            return CouponCode(code, coupon)
+        fun of(code: String, coupon: Coupon, member: Member): CouponCode {
+            return CouponCode(code, coupon, member)
         }
+    }
+
+    fun addCoupon(coupon: Coupon) {
+        this.coupon = coupon
+    }
+
+    fun addMember(member: Member) {
+        this.member = member
     }
 }

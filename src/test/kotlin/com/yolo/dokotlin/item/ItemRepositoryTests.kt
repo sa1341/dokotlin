@@ -25,8 +25,8 @@ class ItemRepositoryTests {
     fun 상품을_저장한다() {
 
          // given
-         var book = Book.of("전공책", 30000L, 10L, "임준영", "sa134123132")
-         var computer = Computer.of("컴퓨터",  500000L, 5L, "삼성전자")
+         var book = Book.of("전공책", 30000, 10, "임준영", "sa134123132")
+         var computer = Computer.of("컴퓨터",  500000, 5, "삼성전자")
 
         // when
         itemRepository.save(book)
