@@ -37,7 +37,7 @@ class CouponRepositoryTests {
     fun setUp() {
 
         var member = Member.of("syn7714@naver.com", "임준영", 30);
-        var coupon = Coupon.of("10% 할인", LocalDateTime.now())
+        var coupon = Coupon.of("1000원 할인 쿠폰", 1000.0, LocalDateTime.now())
         var couponCodee = CouponCode.of("W9213-11SD-31SF-15DA", coupon, member)
 
         couponCodee.addCoupon(coupon)
