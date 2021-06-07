@@ -1,5 +1,6 @@
 package com.yolo.dokotlin.coupon.entity
 
+import com.yolo.dokotlin.coupon.model.CouponStatus
 import com.yolo.dokotlin.global.common.model.BaseTimeEntity
 import com.yolo.dokotlin.member.entity.Member
 import javax.persistence.ManyToOne;
@@ -26,6 +27,8 @@ class CouponCode private constructor(_code: String, _coupon: Coupon, _member: Me
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     var member: Member = _member
+
+    var couponStatus = CouponStatus.UN_USE
 
     companion object {
         fun of(code: String, coupon: Coupon, member: Member): CouponCode {
