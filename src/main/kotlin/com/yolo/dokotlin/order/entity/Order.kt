@@ -1,5 +1,6 @@
 package com.yolo.dokotlin.order.entity
 
+import com.yolo.dokotlin.coupon.entity.Coupon
 import com.yolo.dokotlin.global.common.model.BaseTimeEntity
 import com.yolo.dokotlin.member.entity.Member
 import com.yolo.dokotlin.order.model.OrderStatus
@@ -11,7 +12,7 @@ class Order private constructor(_member: Member, _orderItem: MutableList<OrderIt
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "order?_id")
+    @Column(name = "order_id")
     val id: Long? = null
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -28,9 +29,13 @@ class Order private constructor(_member: Member, _orderItem: MutableList<OrderIt
         fun of(member: Member, orderItem: MutableList<OrderItem>): Order {
             return Order(member, orderItem)
         }
-     }
+    }
 
     fun cancelOrder() {
         orderStatus = OrderStatus.CANCEL
+    }
+
+    fun applyCoupon(coupon: Coupon) {
+
     }
 }

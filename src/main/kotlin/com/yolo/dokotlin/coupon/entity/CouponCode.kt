@@ -42,5 +42,7 @@ class CouponCode private constructor(_code: String, _coupon: Coupon, _member: Me
 
     fun addMember(member: Member) {
         this.member = member
+        member.couponCodes.add(this)
     }
 }
+
