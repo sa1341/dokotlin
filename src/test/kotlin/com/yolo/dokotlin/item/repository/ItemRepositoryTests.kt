@@ -1,4 +1,4 @@
-package com.yolo.dokotlin.item
+package com.yolo.dokotlin.item.repository
 
 import com.yolo.dokotlin.item.entity.Book
 import com.yolo.dokotlin.item.entity.Computer

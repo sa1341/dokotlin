@@ -14,6 +14,9 @@ class Coupon private constructor(_name: String, discountAmount: Double, _expired
 
     var name: String = _name
 
+    @OneToMany(mappedBy = "coupon", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+    var couponCode: MutableList<CouponCode> = mutableListOf()
+
     var discountAmount: Double = 0.0
 
     var isAvailable: Boolean = true

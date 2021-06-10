@@ -1,12 +1,9 @@
-package com.yolo.dokotlin.coupon
+package com.yolo.dokotlin.coupon.repository
 
 import com.yolo.dokotlin.coupon.entity.Coupon
 import com.yolo.dokotlin.coupon.entity.CouponCode
-import com.yolo.dokotlin.coupon.repository.CouponCodeRepository
-import com.yolo.dokotlin.coupon.repository.CouponRepository
 import com.yolo.dokotlin.member.entity.Member
 import com.yolo.dokotlin.member.repository.MemberRepository
-import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -14,6 +11,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.data.repository.findByIdOrNull
+import org.springframework.test.annotation.Rollback
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
@@ -32,7 +30,6 @@ class CouponRepositoryTests {
     @Autowired
     lateinit var couponCodeRepository: CouponCodeRepository
 
-
     @BeforeEach
     fun setUp() {
 
@@ -47,6 +44,18 @@ class CouponRepositoryTests {
         couponRepository.save(coupon)
         couponCodeRepository.save(couponCodee)
 
+    }
+
+    @Rollback(false)
+    @Test
+    fun 회원을_삭제한다() {
+        // given
+        val member = memberRepository.findByIdOrNull(1L)
+        memberRepository.delete(member!!);
+
+        // when
+
+        // then
     }
 
     @Test

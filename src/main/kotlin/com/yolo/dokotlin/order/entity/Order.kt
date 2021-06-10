@@ -22,7 +22,7 @@ class Order private constructor(_member: Member, _orderItem: MutableList<OrderIt
     @Enumerated(EnumType.STRING)
     var orderStatus: OrderStatus = OrderStatus.ORDER
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     var orderItems: MutableList<OrderItem> = _orderItem
 
     companion object {
