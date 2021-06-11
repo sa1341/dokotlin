@@ -13,11 +13,13 @@ import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing
+import org.springframework.scheduling.annotation.EnableScheduling
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
 import java.util.*
 
 @EnableJpaAuditing
+@EnableScheduling
 @SpringBootApplication
 class DokotlinApplication(var boardRepository: BoardRepository): CommandLineRunner {
 
@@ -30,7 +32,7 @@ class DokotlinApplication(var boardRepository: BoardRepository): CommandLineRunn
 	@Transactional
 	override fun run(vararg args: String?) {
 		println("애플리케이션 실행한다!")
-		var member = Member.of("a79007714@gmail.com", "임준영", 30)
+	/*	var member = Member.of("a79007714@gmail.com", "임준영", 30)
 
 		var coupon1 = Coupon.of("나라사랑쿠폰", 1000.0, LocalDateTime.of(2021, 12, 31, 23, 59, 59))
 		var coupon2 = Coupon.of("베타쿠폰", 3000.0, LocalDateTime.of(2021, 12, 31, 23, 59, 59))
@@ -52,7 +54,7 @@ class DokotlinApplication(var boardRepository: BoardRepository): CommandLineRunn
 		couponRepository.save(coupon2)
 		couponRepository.save(coupon3)
 
-		memberRepository.save(member)
+		memberRepository.save(member)*/
 	}
 }
 
