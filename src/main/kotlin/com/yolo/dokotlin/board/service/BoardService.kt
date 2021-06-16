@@ -31,6 +31,7 @@ class BoardService(private val boardRepository: BoardRepository) {
         }
     }
 
+
     @Transactional(readOnly = true)
     fun findBoardById(id: Long): BoardDto.Res? {
         val board = boardRepository
@@ -52,5 +53,9 @@ class BoardService(private val boardRepository: BoardRepository) {
         }?: kotlin.run {
             false
         }
+    }
+
+    fun getBoardFallback(): String {
+        return "게시글이 없는거 같아요";
     }
 }

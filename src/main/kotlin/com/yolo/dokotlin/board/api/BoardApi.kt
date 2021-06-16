@@ -24,6 +24,11 @@ class BoardApi(
 
     val logger: Logger = LoggerFactory.getLogger(this.javaClass)
 
+    @GetMapping(path = ["/hystrix"])
+    fun testHystrix(): String {
+        return "웰컴투 히스트릭스"
+    }
+
     @GetMapping(path = ["/test"])
     fun test(): BoardDto {
         return BoardDto("임준영", "람다 떡상 가즈아", "람다는 흥할것이다!!!!!")
