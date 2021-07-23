@@ -3,7 +3,7 @@ services:
   test_database:
     # 컨테이너 이름을 주고 싶다면 작성한다
     # container_name: test_database
-    image: mariadb
+    image: mysql:5.7
     environment:
       MYSQL_DATABASE: dokotlin
       MYSQL_ROOT_PASSWORD: 1234
