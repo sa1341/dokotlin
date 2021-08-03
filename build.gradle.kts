@@ -38,7 +38,7 @@ dependencies {
     kapt("com.querydsl:querydsl-apt:4.2.2:jpa")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     annotationProcessor(group = "com.querydsl", name = "querydsl-apt", classifier = "jpa")
-    testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
+    implementation("org.springframework.kafka:spring-kafka")
 
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
@@ -49,6 +49,7 @@ dependencies {
     api("org.springframework.boot:spring-boot-starter-validation")
     api("org.springframework.boot:spring-boot-starter-webflux")
     //api("org.springframework.boot:spring-boot-starter-data-redis")
+    testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     runtimeOnly("com.h2database:h2")
     runtimeOnly ("io.micrometer:micrometer-registry-datadog")

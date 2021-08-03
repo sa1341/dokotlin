@@ -34,18 +34,33 @@ spring:
     username: junyoung
     password: wnsdud@123
 
+
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     open-in-view: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         show_sql: true
         format_sql: true
+
+management:
+  metrics:
+    export:
+      datadog:
+        enabled: true
+        api-key: e5580c4e1478158aa3a759395cc6e47c
+        application-key: 76520e65af732106fa615986bc6b495d758b933a
+        host-tag: thirdparty-example
+        step: PT10S
+
+kafka:
+  hosts: localhost:9092
 
 logging:
   level:
     # org.hibernate.SQL: debug
     com.yolo.dokotlin: debug
     # org.hibernate.type: trace
+
