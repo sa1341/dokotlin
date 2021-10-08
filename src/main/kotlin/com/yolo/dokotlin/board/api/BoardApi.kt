@@ -9,6 +9,7 @@ import com.yolo.dokotlin.global.common.model.PageRequest
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.domain.Page
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -34,10 +35,14 @@ class BoardApi(
         return BoardDto("임준영", "람다 떡상 가즈아", "람다는 흥할것이다!!!!!")
     }
 
+    @Cacheable(value = ["findMemberByCache"], key = "#id")
     @GetMapping(path = ["/{id}"])
     fun getBoard(@PathVariable(value = "id") id: Long): ResponseEntity<BoardDto.Res?> {
         logger.debug("id: [{}]", id)
+        val start = System.currentTimeMillis()
         val boardRes = boardService.findBoardById(id)
+        val end = System.currentTimeMillis()
+        logger.info("name의 Cache의 수행시간: ${(end - start).toString()}")
         return ResponseEntity.ok(boardRes)
     }
 

@@ -29,10 +29,10 @@ logging:
 spring:
   profiles: local
   datasource:
-    url: jdbc:mariadb://localhost:3306/dokotlin
-    driver-class-name: org.mariadb.jdbc.Driver
-    username: junyoung
-    password: wnsdud@123
+    url: jdbc:mysql://127.0.0.1:3306/dokotlin?useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password:
 
 
   jpa:
@@ -44,16 +44,6 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
-
-management:
-  metrics:
-    export:
-      datadog:
-        enabled: true
-        api-key: e5580c4e1478158aa3a759395cc6e47c
-        application-key: 76520e65af732106fa615986bc6b495d758b933a
-        host-tag: thirdparty-example
-        step: PT10S
 
 kafka:
   hosts: localhost:9092

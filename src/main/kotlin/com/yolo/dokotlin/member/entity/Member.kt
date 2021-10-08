@@ -1,6 +1,5 @@
 package com.yolo.dokotlin.member.entity
 
-import com.yolo.dokotlin.coupon.entity.CouponCode
 import com.yolo.dokotlin.global.common.model.BaseTimeEntity
 import javax.persistence.*
 
@@ -17,9 +16,6 @@ class Member private constructor(_email: String, _name: String, _age: Int): Base
     var name: String = _name
 
     var age: Int = _age
-
-    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
-    var couponCodes: MutableList<CouponCode> = mutableListOf()
 
     companion object {
         fun of(_email: String, _name: String, _age: Int): Member {
