@@ -35,14 +35,24 @@ class BoardApi(
         return BoardDto("임준영", "람다 떡상 가즈아", "람다는 흥할것이다!!!!!")
     }
 
-    @Cacheable(value = ["findMemberByCache"], key = "#id")
-    @GetMapping(path = ["/{id}"])
-    fun getBoard(@PathVariable(value = "id") id: Long): ResponseEntity<BoardDto.Res?> {
+    @Cacheable(cacheNames = ["findMemberByCache"], key = "#id")
+    @GetMapping(path = ["/cache/{id}"])
+    fun cacheTest(@PathVariable(value = "id") id: Long): String {
         logger.debug("id: [{}]", id)
+
         val start = System.currentTimeMillis()
         val boardRes = boardService.findBoardById(id)
         val end = System.currentTimeMillis()
+
         logger.info("name의 Cache의 수행시간: ${(end - start).toString()}")
+
+        return boardRes.toString()
+    }
+
+    @GetMapping(path = ["/{id}"])
+    fun getBoard(@PathVariable(value = "id") id: Long): ResponseEntity<BoardDto.Res?> {
+        logger.debug("id: [{}]", id)
+        val boardRes = boardService.findBoardById(id)
         return ResponseEntity.ok(boardRes)
     }
 

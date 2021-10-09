@@ -44,6 +44,9 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
+  cache:
+    jcache:
+      config: classpath:ehcache.xml
 
 kafka:
   hosts: localhost:9092

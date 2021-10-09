@@ -36,5 +36,9 @@ data class BoardDto(
         fun addReplies(replies: MutableList<ReplyDto>) {
             this.replies = replies
         }
+
+        override fun toString(): String {
+            return "Res(id=$id, author='$author', title='$title', content='$content')"
+        }
     }
 }
