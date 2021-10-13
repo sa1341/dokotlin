@@ -204,4 +204,63 @@ class ReactvieProgramExam {
             .expectNext("Yellowstone", "Yosemite", "Grand Canyon")
             .verifyComplete()
     }
+
+    @DisplayName(value = "경과 시간동안만 항목을 방출하는 take 오퍼레이션 예제")
+    @Test
+    fun takeDuration() {
+
+        // given
+        val nationalFlux: Flux<String> = Flux.just(
+            "Yellowstone", "Yosemite", "Grand Canyon",
+            "Zion", "Grand Teton"
+        )
+            .delayElements(Duration.ofSeconds(1))
+            .take(Duration.ofMillis(3500))
+
+        // then
+        StepVerifier.create(nationalFlux)
+            .expectNext("Yellowstone", "Yosemite", "Grand Canyon")
+            .verifyComplete()
+    }
+
+    @DisplayName(value = "원하는 조건을 기반으로 선택적인 발행을 할 수 있는 Filter 예제")
+    @Test
+    fun filter() {
+        // given
+        val nationalParkFlux: Flux<String> = Flux.just(
+            "Yellowstone", "Yosemite", "Grand Canyon",
+            "Zion", "Grand Teton"
+        ).filter {
+            np -> !np.contains(" ")
+        }
+
+        // when
+        nationalParkFlux.subscribe() {
+            it -> println(it)
+        }
+
+        // then
+        StepVerifier.create(nationalParkFlux)
+            .expectNext("Yellowstone", "Yosemite", "Zion")
+            .verifyComplete()
+    }
+
+    @DisplayName(value = "중복되지 않는 데이터 항목을 발행하는 Distinct 예제")
+    @Test
+    fun distinct() {
+        // given
+        val animalFlux: Flux<String> = Flux.just(
+            "dog", "cat", "bird", "dog", "bird", "anteater"
+        ).distinct()
+
+        // when
+        animalFlux.subscribe() {
+                it -> println(it)
+        }
+
+        // then
+        StepVerifier.create(animalFlux)
+            .expectNext("dog", "cat", "bird", "anteater")
+            .verifyComplete()
+    }
 }
