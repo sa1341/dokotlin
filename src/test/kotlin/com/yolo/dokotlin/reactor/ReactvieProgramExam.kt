@@ -6,12 +6,18 @@ import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import reactor.core.publisher.Flux
+import reactor.core.publisher.Mono
+import reactor.core.scheduler.Schedulers
 import reactor.test.StepVerifier
 import java.time.Duration
+import java.util.*
 
 @ExtendWith(SpringExtension::class)
 @SpringBootTest
 class ReactvieProgramExam {
+
+    data class Player(val firstName: String, val lastName: String)
+
 
     @DisplayName(value = "Collection 객체의 과일이름들을 방출하는 Flux 객체 생성 예제")
     @Test
@@ -261,6 +267,143 @@ class ReactvieProgramExam {
         // then
         StepVerifier.create(animalFlux)
             .expectNext("dog", "cat", "bird", "anteater")
+            .verifyComplete()
+    }
+
+    @DisplayName(value = "발행 항목을 다른 형태나 타입으로 매핑하는 map 오퍼레이션 예제")
+    @Test
+    fun map() {
+        // given
+        val playerFlux: Flux<Player> = Flux.just(
+            "Michael Jordan", "Jean Kim", "Steve Kerr")
+            .map { n ->
+                val split = n.split(" ")
+                Player(split[0], split[1])
+            }
+
+        // then
+        StepVerifier.create(playerFlux)
+            .expectNext(Player("Michael", "Jordan"))
+            .expectNext(Player("Jean", "Kim"))
+            .expectNext(Player("Steve", "Kerr"))
+            .verifyComplete()
+    }
+
+    @DisplayName(value = "비동기적으로 수행이 가능한 flatMap 오퍼레이션 예제코드")
+    @Test
+    fun flatMap() {
+        // given
+        val playerFlux: Flux<Player> = Flux.just(
+            "Michael Jordan", "Jean Kim", "Steve Kerr")
+            .flatMap { n -> Mono.just(n) }
+            .map { p ->
+                val split = p.split(" ")
+                Player(split[0], split[1])
+            }
+            .subscribeOn(Schedulers.parallel())
+
+        // when
+        val playerList: MutableList<Player> = mutableListOf(
+            Player("Michael", "Jordan"),
+            Player("Jean", "Kim"),
+            Player("Steve", "Kerr")
+        )
+
+        // then
+        StepVerifier.create(playerFlux)
+            .expectNextMatches{ p -> playerList.contains(p)}
+            .expectNextMatches{ p -> playerList.contains(p)}
+            .expectNextMatches{ p -> playerList.contains(p)}
+            .verifyComplete()
+    }
+
+    @DisplayName(value = "리액티브 스트림의 데이터 버퍼링 예제코드")
+    @Test
+    fun buffer() {
+        // given
+        val fruitFlux: Flux<String> = Flux.just(
+            "apple", "orange", "banana", "kiwi", "strawberry")
+
+        val bufferedFlux: Flux<List<String>> = fruitFlux.buffer(3)
+
+        // then
+        StepVerifier.create(bufferedFlux)
+            .expectNext(listOf("apple", "orange", "banana"))
+            .expectNext(listOf("kiwi", "strawberry"))
+            .verifyComplete()
+    }
+
+    @DisplayName(value = "List 컬렉션을 병행으로 처리하는 flatMap 예제코드")
+    @Test
+    fun parallelBuffer() {
+        // given
+        val fruitFlux: Flux<String> = Flux.just(
+            "apple", "orange", "banana", "kiwi", "strawberry")
+
+        // when
+        fruitFlux.buffer(3)
+            .flatMap { x ->
+                Flux.fromIterable(x)
+                    .map { y -> y.toUpperCase() }
+                    .subscribeOn(Schedulers.parallel())
+                    .log()
+            }.subscribe()
+    }
+
+    @DisplayName(value = "Map을 포함하는 Mono 생성 예제")
+    @Test
+    fun collectMap() {
+        // given
+        val animalFlux: Flux<String> = Flux.just(
+            "elephant", "tiger", "lion", "monkey", "crocodile")
+
+        // when
+        val animalMono: Mono<Map<Char, String>> = animalFlux.collectMap{ a -> a[0]}
+
+        animalMono.subscribe() {
+            map -> println("map: ${map.toString()}")
+        }
+
+        // then
+        StepVerifier.create(animalMono)
+            .expectNextMatches() {
+                map -> map.size == 5 &&
+                    map['l'].equals("lion") &&
+                    map['t'].equals("tiger") &&
+                    map['c'].equals("crocodile")
+            }
+            .verifyComplete()
+    }
+
+    @DisplayName(value = "조건 일치를 판단하기 위한 all 로직 오퍼레이션 예제코드")
+    @Test
+    fun all() {
+        // given
+        val animalFlux: Flux<String> = Flux.just(
+            "elephant", "tiger", "lion", "monkey", "crocodile")
+
+        // when
+        val hasMono: Mono<Boolean> = animalFlux.all { a -> a.contains("z")}
+
+        // then
+        StepVerifier.create(hasMono)
+            .expectNext(false)
+            .verifyComplete()
+    }
+
+    @DisplayName(value = "조건 일치를 판단하기 위한 any 로직 오퍼레이션 예제코드")
+    @Test
+    fun any() {
+        // given
+        val animalFlux: Flux<String> = Flux.just(
+            "elephant", "tiger", "lion", "monkey", "crocodile")
+
+        // when
+        val hasZMono: Mono<Boolean> = animalFlux.any { a -> a.contains("a") }
+
+        // then
+        StepVerifier.create(hasZMono)
+            .expectNext(true)
             .verifyComplete()
     }
 }
