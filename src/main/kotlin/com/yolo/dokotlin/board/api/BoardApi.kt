@@ -3,6 +3,7 @@ package com.yolo.dokotlin.board.api
 import com.yolo.dokotlin.board.dto.BoardSearchType
 import com.yolo.dokotlin.board.entity.Board
 import com.yolo.dokotlin.board.model.BoardDto
+import com.yolo.dokotlin.board.repository.BoardRepository
 import com.yolo.dokotlin.board.repository.support.BoardSearchService
 import com.yolo.dokotlin.board.service.BoardService
 import com.yolo.dokotlin.global.common.model.PageRequest
@@ -20,7 +21,8 @@ import javax.validation.Valid
 @RestController
 class BoardApi(
     @Autowired private val boardService: BoardService,
-    @Autowired private val boardSearchService: BoardSearchService
+    @Autowired private val boardSearchService: BoardSearchService,
+    @Autowired private val boardRepository: BoardRepository
 ) {
 
     val logger: Logger = LoggerFactory.getLogger(this.javaClass)
@@ -32,6 +34,7 @@ class BoardApi(
 
     @GetMapping(path = ["/test"])
     fun test(): BoardDto {
+        boardRepository.findAll().take(12)
         return BoardDto("임준영", "람다 떡상 가즈아", "람다는 흥할것이다!!!!!")
     }
 

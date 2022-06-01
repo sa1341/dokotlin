@@ -8,12 +8,17 @@ import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Component
 import org.springframework.web.client.RestTemplate
 import org.springframework.web.util.UriComponentsBuilder
+import java.io.IOException
+import kotlin.jvm.Throws
 
 @Component
-class FinanceAdapter (private val financeRestTemplate: RestTemplate) {
+class FinanceAdapter (
+    private val financeRestTemplate: RestTemplate
+) {
 
     private val log by logger()
 
+    @Throws(IOException::class)
     fun getStockInfo(code: String): ResponseEntity<StockInfo> {
 
         log.info("종목코드: $code")
@@ -23,13 +28,13 @@ class FinanceAdapter (private val financeRestTemplate: RestTemplate) {
             .build()
             .expand(code)
 
-        val financeUrl = build.toUriString()
-        log.info("url: $financeUrl")
+        val financialUrl = build.toUriString()
+        log.info("financialUrl: [{}]", financialUrl)
 
-        val response = financeRestTemplate.exchange(financeUrl, HttpMethod.GET, null,
+        val response = financeRestTemplate.exchange(financialUrl, HttpMethod.GET, null,
             object : ParameterizedTypeReference<StockInfo>() {})
 
-        log.info("response: $response")
+        log.info("response: [{}]", response)
 
         return response
     }

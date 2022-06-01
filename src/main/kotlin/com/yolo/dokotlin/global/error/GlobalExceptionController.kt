@@ -10,7 +10,9 @@ import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException
-import javax.servlet.http.HttpServletRequest
+import java.util.concurrent.RejectedExecutionException
+//import javax.servlet.http.HttpServletRequest
+//import javax.servlet.http.HttpServletRequest
 import javax.validation.ConstraintViolationException
 
 @RestControllerAdvice
@@ -25,13 +27,14 @@ class GlobalExceptionController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse)
     }
 
+    // @Valid 유효성을 통과하지 못할 경우 발생함.
     @ExceptionHandler(value = [MethodArgumentNotValidException::class])
     fun handleMethodArgumentNotValidException(e: MethodArgumentNotValidException): ResponseEntity<ErrorResponse> {
         logger.error("MethodArgumentNotValidException", e)
         val errorResponse = ErrorResponse.of(ErrorCode.METHOD_NOT_VALID, e.bindingResult)
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse)
     }
-
+    // Number 타입이 아닌 String 타입으로 요청이 들어올 경우 발생함
     @ExceptionHandler(value = [MethodArgumentTypeMismatchException::class])
     fun handleMethodArgumentTypeMismatchException(e: MethodArgumentTypeMismatchException): ResponseEntity<ErrorResponse> {
         logger.error("MethodArgumentTypeMismatchException", e)
@@ -39,7 +42,8 @@ class GlobalExceptionController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse)
     }
 
-    @ExceptionHandler(value = [ConstraintViolationException::class])
+    // 메서드 파라미터나 리턴값이 유효하지 않으면 발생함
+   /* @ExceptionHandler(value = [ConstraintViolationException::class])
     fun handleConstraintViolationException(e: ConstraintViolationException, request: HttpServletRequest): ResponseEntity<MutableList<ErrorResponse.FieldError>> {
         logger.error("handleConstraintViolationException", e)
         val errors =  mutableListOf<ErrorResponse.FieldError>()
@@ -49,7 +53,7 @@ class GlobalExceptionController {
             errors.add(ErrorResponse.FieldError.of(field,message))
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors)
-    }
+    }*/
 
     @ExceptionHandler(value = [BusinessException::class])
     fun handleBusinessException(e: BusinessException): ResponseEntity<ErrorResponse> {
@@ -61,6 +65,13 @@ class GlobalExceptionController {
 
     @ExceptionHandler(value = [Exception::class])
     fun handleException(e: Exception): ResponseEntity<ErrorResponse> {
+        logger.error("handleException", e)
+        val errorResponse = ErrorResponse.of(ErrorCode.INTERNAL_SERVER_ERROR)
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse)
+    }
+
+    @ExceptionHandler(value = [RejectedExecutionException::class])
+    fun handleRejectedException(e: Exception): ResponseEntity<ErrorResponse> {
         logger.error("handleException", e)
         val errorResponse = ErrorResponse.of(ErrorCode.INTERNAL_SERVER_ERROR)
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse)

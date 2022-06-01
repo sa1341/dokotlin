@@ -6,14 +6,13 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import java.io.FileInputStream
 import java.net.URLEncoder
-import javax.servlet.http.HttpServletResponse
 
 @RequestMapping("/api")
 @RestController
 class FileApi {
 
 
-    @GetMapping("/files/download")
+    /*@GetMapping("/files/download")
     fun download(response: HttpServletResponse): Unit {
 
         val path = "/Users/limjun-young/workspace/privacy/dev/test/plaintext.txt"
@@ -30,5 +29,5 @@ class FileApi {
         response.outputStream.write(byte)
         response.outputStream.flush()
         response.outputStream.close()
-    }
+    }*/
 }

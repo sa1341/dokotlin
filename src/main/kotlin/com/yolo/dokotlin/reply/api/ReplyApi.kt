@@ -22,12 +22,12 @@ class ReplyApi(
 
     val logger: Logger = LoggerFactory.getLogger(this.javaClass)
 
-    @PostMapping(path = ["/{id}/replies"])
+    /*@PostMapping(path = ["/{id}/replies"])
     fun save(@PathVariable(name = "id") id: Long, @RequestBody @Valid replyDto: ReplyDto): ResponseEntity<ReplyDto.Res> {
         logger.debug("id: {}, replyDto: {}", id, replyDto)
         val reply = replyService.save(id, replyDto)
         return ResponseEntity.ok(reply.toRes())
-    }
+    }*/
 
     @PutMapping(path = ["/{id}/replies"])
     fun update(@PathVariable(name = "id") id: Long, @RequestBody @Valid updateForm: ReplyDto.UpdateForm): ReplyDto.Res {

@@ -10,8 +10,8 @@ class SampleTopicListener {
 
     val logger = LoggerFactory.getLogger(SampleTopicListener::class.java)
 
-    @KafkaListener(topics = ["sample-topic"])
+ /*   @KafkaListener(topics = ["sample-topic"])
     fun consume(@Payload data: String) {
         logger.info("Message: $data")
-    }
+    }*/
 }

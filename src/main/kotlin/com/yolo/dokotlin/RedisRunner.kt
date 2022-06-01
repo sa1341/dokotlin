@@ -2,9 +2,9 @@ package com.yolo.dokotlin
 
 import org.springframework.boot.ApplicationArguments
 import org.springframework.boot.ApplicationRunner
-import org.springframework.data.redis.core.StringRedisTemplate
 import org.springframework.stereotype.Component
 
+/*
 @Component
 class RedisRunner(val redisTemplate: StringRedisTemplate): ApplicationRunner {
 
@@ -15,3 +15,4 @@ class RedisRunner(val redisTemplate: StringRedisTemplate): ApplicationRunner {
         values.set("dream", "take a walking with my puppy")
     }
 }
+*/

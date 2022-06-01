@@ -1,59 +1,6 @@
 spring:
   profiles:
-    active: local
----
-spring:
-  profiles: dev
-  datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:tcp://localhost/~/dokotlin
-    username: sa
-    password:
-
-  jpa:
-    generate-ddl: true
-    hibernate:
-      ddl-auto: create
-    properties:
-      hibernate:
-        show-sql: false
-        format_sql: true
-    open-in-view: false
-logging:
-  level:
-    # org.hibernate.SQL: debug
-    com.yolo.dokotlin: debug
-    # org.hibernate.type: trace
-
----
-spring:
-  profiles: local
-  datasource:
-    url: jdbc:mysql://127.0.0.1:3306/dokotlin?useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password:
-
-
-  jpa:
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    open-in-view: true
-    hibernate:
-      ddl-auto: update
-    properties:
-      hibernate:
-        show_sql: true
-        format_sql: true
-  cache:
-    jcache:
-      config: classpath:ehcache.xml
+    active: prod
 
 kafka:
   hosts: localhost:9092
-
-logging:
-  level:
-    # org.hibernate.SQL: debug
-    com.yolo.dokotlin: debug
-    # org.hibernate.type: trace
-

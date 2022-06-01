@@ -57,7 +57,7 @@ class ErrorResponse {
             fun of(bindingResult: BindingResult): MutableList<FieldError> {
                 val fieldErrors = bindingResult.fieldErrors
                 return fieldErrors.map {
-                    FieldError(it.field, it.rejectedValue?.toString()?: null, it.defaultMessage)
+                    FieldError(it.field, it.rejectedValue?.toString(), it.defaultMessage)
                 }.toMutableList()
             }
 

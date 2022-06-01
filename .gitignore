@@ -36,4 +36,4 @@ out/
 .vscode/
 
 ### Docker Mysql Volume ###
-.volumes/
+/volumes/
