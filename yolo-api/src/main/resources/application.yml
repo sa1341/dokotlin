@@ -1,0 +1,18 @@
+spring:
+  profiles:
+    active: prod
+
+server:
+  port: 8080
+
+kafka:
+  hosts: localhost:9092
+
+  cache:
+    jcache:
+      config: classpath:ehcache.xml
+
+yolo:
+  service:
+    host: 192.168.0.13
+    port: 1341
