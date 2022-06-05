@@ -2,7 +2,6 @@ package com.yolo.jean.board.dto
 
 import com.yolo.jean.domain.board.entity.Board
 import com.yolo.jean.reply.dto.ReplyDto
-import java.time.Instant
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Size
 

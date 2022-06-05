@@ -7,6 +7,10 @@ import com.yolo.jean.domain.board.constants.BoardSearchType
 import com.yolo.jean.domain.board.entity.Board
 import com.yolo.jean.domain.common.logger
 import com.yolo.jean.global.common.model.PageRequest
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.Parameter
+import io.swagger.v3.oas.annotations.responses.ApiResponse
+import io.swagger.v3.oas.annotations.responses.ApiResponses
 import org.springframework.data.domain.Page
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -21,8 +25,16 @@ class BoardApi(
 
     private val log by logger()
 
+    @Operation(summary = "getBoard TEST", description = "getBoard TEST")
+    @ApiResponses(
+        ApiResponse(description = "OK", responseCode = "200"),
+        ApiResponse(description = "BAD REQUEST", responseCode = "400"),
+        ApiResponse(description = "NOT FOUND", responseCode = "404"),
+        ApiResponse(description = "INTERNAL SERVER ERROR", responseCode = "500")
+    )
     @GetMapping(path = ["/{id}"])
-    fun getBoard(@PathVariable(value = "id") id: Long): ResponseEntity<BoardDto.Res> {
+    fun getBoard(@Parameter(description = "게시글 번호", required = true, example = "1")
+                 @PathVariable(value = "id") id: Long): ResponseEntity<BoardDto.Res> {
         log.info("id: [{}]", id)
         val boardRes = boardService.findBoardById(id)
         return ResponseEntity.ok(boardRes)

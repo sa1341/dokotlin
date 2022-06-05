@@ -14,7 +14,6 @@ class AsyncConfig: AsyncConfigurerSupport() {
 
     @Bean
     override fun getAsyncExecutor(): Executor {
-
         val executor = ThreadPoolTaskExecutor()
         executor.corePoolSize  = 300
         executor.setThreadNamePrefix("JEAN-CALM-")

@@ -23,6 +23,3 @@ dependencies {
     runtimeOnly("com.h2database:h2")
 }
 
-sourceSets["main"].withConvention(org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet::class) {
-    kotlin.srcDir("$buildDir/generated/source/kapt/main")
-}
