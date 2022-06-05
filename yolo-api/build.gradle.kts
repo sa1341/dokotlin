@@ -1,3 +1,7 @@
+plugins {
+    id("org.asciidoctor.convert") version "1.5.8"
+}
+
 dependencies {
     //api("org.springframework.boot:spring-boot-starter-data-redis")
     //api("org.springframework.boot:spring-boot-starter-webflux")
@@ -18,15 +22,38 @@ dependencies {
     }
 }
 
-//val snippetsDir = file("build/generated-snippets").also { extra["snippetsDir"] = it }
+val asciidocDir = "build/asciidoc"
+val snippetsDir = file("build/generated-snippets").also { extra["snippetsDir"] = it }
+val resourceDir = "src/main/resources"
+
+tasks.test {
+    outputs.dir(snippetsDir)
+}
 
 tasks.jar {
     enabled = false
 }
 
-
 tasks.bootJar {
     enabled = true
+
+    val asciidoctor by tasks
+    dependsOn(asciidoctor)
+
+    copy {
+        from("${asciidocDir}/html5")
+        into("${resourceDir}/static/docs")
+    }
+}
+
+tasks.register<Copy>("copyDocument") {
+    from("${asciidocDir}/html5")
+    into("BOOT-INF/classes/static/docs")
+}
+
+tasks.asciidoctor {
+    val test by tasks
+    dependsOn(test)
 }
 
 
