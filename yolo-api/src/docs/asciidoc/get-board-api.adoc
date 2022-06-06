@@ -1,0 +1,26 @@
+ifndef::snippets[]
+:snippets: ../../../build/generated-snippets
+endif::[]
+:doctype: Board-API
+:icons: font
+:source-highlighter: highlights
+:toc: left
+:toclevels: 2
+:sectlinks:
+:operation-http-request-title: Example Request
+:operation-http-response-title: Example Response
+
+[[resources]]
+= getBoard
+
+[[resources-Board]]
+== 게시판 도메인
+
+[[resources-Board]]
+=== 게시글 조회 API
+
+==== PathVariable 필드 명세서
+include::{snippets}/board/getBoard/path-parameters.adoc[]
+
+==== Response Body 명세서
+include::{snippets}/board/getBoard/response-body.adoc[]
