@@ -35,4 +35,8 @@ class Board (
             _content: String
         ): Board = Board(_author, _title, _content)
     }
+
+    override fun toString(): String {
+        return "Board(author='$author', title='$title', content='$content')"
+    }
 }
