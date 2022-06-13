@@ -2,6 +2,9 @@ spring:
   profiles:
     active: prod
 
+  application:
+    name: board-service
+
 server:
   port: 8080
 
@@ -16,3 +19,13 @@ yolo:
   service:
     host: 192.168.0.13
     port: 1341
+
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    instance-id: board-service-instance

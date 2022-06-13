@@ -2,10 +2,13 @@ plugins {
     id("org.asciidoctor.convert") version "1.5.8"
 }
 
+extra["springCloudVersion"] = "Hoxton.SR5"
+
 dependencies {
     //api("org.springframework.boot:spring-boot-starter-data-redis")
     //api("org.springframework.boot:spring-boot-starter-webflux")
     api(project(":yolo-domain"))
+    implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
     implementation ("io.springfox:springfox-boot-starter:3.0.0")
     implementation("org.springframework.kafka:spring-kafka")
     implementation("org.springframework.boot:spring-boot-starter-cache")
@@ -19,6 +22,12 @@ dependencies {
     testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
+    }
+}
+
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
     }
 }
 
