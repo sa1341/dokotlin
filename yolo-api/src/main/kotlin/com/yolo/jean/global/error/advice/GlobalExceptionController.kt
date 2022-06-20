@@ -1,9 +1,9 @@
 package com.yolo.jean.global.error.advice
 
-import com.yolo.jean.domain.common.logger
 import com.yolo.jean.global.error.exception.BusinessException
 import com.yolo.jean.global.error.exception.ErrorResponse
 import com.yolo.jean.global.error.exception.constants.ErrorCode
+import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.BindException
@@ -18,7 +18,7 @@ import javax.validation.ConstraintViolationException
 @RestControllerAdvice
 class GlobalExceptionController {
 
-    private val log by logger()
+    private val log = LoggerFactory.getLogger(this.javaClass)
 
     @ExceptionHandler(value = [BusinessException::class])
     fun handleBusinessException(e: BusinessException): ResponseEntity<ErrorResponse> {

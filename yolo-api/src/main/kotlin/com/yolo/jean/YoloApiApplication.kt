@@ -1,5 +1,6 @@
 package com.yolo.jean
 
+import com.yolo.jean.domain.config.EnableYoloDomain
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.cache.annotation.EnableCaching
@@ -9,6 +10,7 @@ import org.springframework.retry.annotation.EnableRetry
 @EnableRetry
 @EnableCaching
 @EnableEurekaClient
+@EnableYoloDomain
 @SpringBootApplication
 class YoloApiApplication
 

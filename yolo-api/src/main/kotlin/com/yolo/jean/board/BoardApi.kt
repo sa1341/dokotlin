@@ -1,16 +1,17 @@
 package com.yolo.jean.board
 
 import com.yolo.jean.board.dto.BoardDto
+import com.yolo.jean.board.dto.Result
 import com.yolo.jean.board.service.BoardSearchService
 import com.yolo.jean.board.service.BoardService
 import com.yolo.jean.domain.board.constants.BoardSearchType
 import com.yolo.jean.domain.board.entity.Board
-import com.yolo.jean.domain.common.logger
 import com.yolo.jean.global.common.model.PageRequest
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
+import org.slf4j.LoggerFactory
 import org.springframework.data.domain.Page
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -23,7 +24,8 @@ class BoardApi(
     private val boardSearchService: BoardSearchService
 ) {
 
-    private val log by logger()
+    private val log = LoggerFactory.getLogger(this.javaClass)
+
 
     @Operation(summary = "getBoard TEST", description = "getBoard TEST")
     @ApiResponses(
@@ -60,5 +62,11 @@ class BoardApi(
         log.debug("pageRequest: ${pageRequest.size}")
 
         return boardSearchService.search(type, value, pageRequest.of())
+    }
+
+    @GetMapping("member/{email}")
+    fun getBoardWithReplies(@PathVariable("email") email: String): ResponseEntity<Result<*>> {
+        val result = boardService.getBoardsWithReplies(email)
+        return ResponseEntity.ok().body(result)
     }
 }

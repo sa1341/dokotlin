@@ -1,8 +1,10 @@
 package com.yolo.jean.domain.board.entity
 
 import com.yolo.jean.domain.common.EntityAuditing
+import com.yolo.jean.domain.member.entity.Member
 import com.yolo.jean.domain.reply.entity.Reply
 import java.time.format.DateTimeFormatter
+import java.util.*
 import javax.persistence.*
 
 @Table(name = "board")
@@ -25,8 +27,21 @@ class Board (
     var content: String = content
         protected set
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    var member: Member? = null
+
     @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], mappedBy = "board")
     var replies: MutableList<Reply> = mutableListOf()
+
+    fun addMember(member: Member) {
+        if (Objects.nonNull(this.member)) {
+            this.member!!.boards.remove(this)
+        }
+
+        this.member = member
+        member.boards.add(this)
+    }
 
     companion object {
         fun of (

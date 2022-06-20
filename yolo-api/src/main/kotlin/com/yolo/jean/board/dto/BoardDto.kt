@@ -44,3 +44,7 @@ data class BoardDto(
         val content: String
     )
 }
+
+data class Result<T>(
+    val data: T
+)

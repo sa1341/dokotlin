@@ -1,13 +1,13 @@
 package com.yolo.jean.global.common.model
 
-import com.yolo.jean.domain.common.logger
+import org.slf4j.LoggerFactory
 import org.springframework.data.domain.Sort
 import org.springframework.data.domain.PageRequest
 
 
 class PageRequest {
 
-    private val log by logger()
+    private val log = LoggerFactory.getLogger(this.javaClass)
 
     var page: Int = 1
         set(value) {

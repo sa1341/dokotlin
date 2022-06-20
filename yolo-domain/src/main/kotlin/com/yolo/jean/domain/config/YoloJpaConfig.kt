@@ -1,6 +1,5 @@
 package com.yolo.jean.domain.config
 
-import com.yolo.jean.domain.common.logger
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateProperties
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateSettings
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties
@@ -24,8 +23,6 @@ const val basePackages = "com.yolo.jean.domain"
 )
 class YoloJpaConfig(
 ) {
-
-    private val log by logger()
 
     @Bean
     fun entityManagerFactory(
