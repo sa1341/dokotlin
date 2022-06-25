@@ -1,4 +1,4 @@
-package com.yolo.jean.board
+package com.yolo.jean.board.api
 
 import com.yolo.jean.board.dto.BoardDto
 import com.yolo.jean.board.dto.Result

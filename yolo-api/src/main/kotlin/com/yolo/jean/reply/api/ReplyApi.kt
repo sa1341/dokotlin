@@ -1,4 +1,4 @@
-package com.yolo.jean.reply
+package com.yolo.jean.reply.api
 
 import com.yolo.jean.reply.dto.ReplyDto
 import com.yolo.jean.reply.service.ReplyService
