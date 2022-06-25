@@ -3,6 +3,7 @@ package com.yolo.jean.board.dto
 import com.yolo.jean.domain.board.entity.Board
 import com.yolo.jean.reply.dto.ReplyDto
 import javax.validation.constraints.NotBlank
+import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
 
 data class BoardDto(
@@ -15,7 +16,10 @@ data class BoardDto(
 
     @field:NotBlank
     @field:Size(min = 2, max = 1000, message = "본문은 2~30자 이내여야 합니다.")
-    var content: String
+    var content: String,
+
+    @field:NotNull
+    var memberId: Long
 ) {
 
     fun toEntity(): Board {
@@ -45,6 +49,6 @@ data class BoardDto(
     )
 }
 
-data class Result<T>(
-    val data: T
-)
+class Result<T>(t: T) {
+    val data = t
+}

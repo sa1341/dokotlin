@@ -38,8 +38,16 @@ class BoardService(
     @Transactional
     fun save(boardDto: BoardDto) {
         log.info("boardDto: $boardDto")
+
+        val memberId = boardDto.memberId
         val board = boardDto.toEntity()
-        boardRepository.save(board)
+
+        val member = memberRepository.findByIdOrNull(memberId)
+        member?.let {
+            board.addMember(it)
+        }?: kotlin.run {
+            throw EntityNotFoundException("Member Id is not exist")
+        }
     }
 
     @Transactional

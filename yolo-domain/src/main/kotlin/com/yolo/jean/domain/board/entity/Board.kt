@@ -3,13 +3,12 @@ package com.yolo.jean.domain.board.entity
 import com.yolo.jean.domain.common.EntityAuditing
 import com.yolo.jean.domain.member.entity.Member
 import com.yolo.jean.domain.reply.entity.Reply
-import java.time.format.DateTimeFormatter
 import java.util.*
 import javax.persistence.*
 
 @Table(name = "board")
 @Entity
-class Board (
+class Board(
     author: String,
     title: String,
     content: String
@@ -43,15 +42,15 @@ class Board (
         member.boards.add(this)
     }
 
+    override fun toString(): String {
+        return "Board(author='$author', title='$title', content='$content')"
+    }
+
     companion object {
         fun of (
             _author: String,
             _title: String,
             _content: String
         ): Board = Board(_author, _title, _content)
-    }
-
-    override fun toString(): String {
-        return "Board(author='$author', title='$title', content='$content')"
     }
 }

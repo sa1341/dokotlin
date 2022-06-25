@@ -28,13 +28,15 @@ class BoardApiTests: RestDocumentTests() {
     @Autowired
     lateinit var objectMapper: ObjectMapper
 
+    val memberId: Long = 1
+
     @DisplayName("BoardApi TEST01 - 게시글 조회 테스트")
     @Test
     fun 게시글을_조회한다() {
 
         // given
-        val boardId: Long = 1;
-        val responseBody = BoardDto("임준영", "아프니까 환자지", "스트레스 받지말고 살자...")
+        val boardId: Long = 18;
+        val responseBody = BoardDto("임준영", "22년도 대박기원", "주식도 흥하자!", memberId)
         mockMvc.perform(
             RestDocumentationRequestBuilders.get("/api/v1/boards/{id}", boardId)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -71,7 +73,7 @@ class BoardApiTests: RestDocumentTests() {
     fun 게시글을_저장한다() {
 
         // given
-        val boardDto = BoardDto("진캄", "22년도 대박기원", "주식도 흥하자!")
+        val boardDto = BoardDto("임준영", "화이팅하자..", "증권 대박나즈아!!!", memberId)
         val content = objectMapper.writeValueAsString(boardDto)
 
         mockMvc.perform(
@@ -91,12 +93,14 @@ class BoardApiTests: RestDocumentTests() {
                 requestFields(
                     fieldWithPath("author").type(JsonFieldType.STRING).description("게시글 작성자"),
                     fieldWithPath("title").type(JsonFieldType.STRING).description("게시글 제목"),
-                    fieldWithPath("content").type(JsonFieldType.STRING).description("게시글 내용")
+                    fieldWithPath("content").type(JsonFieldType.STRING).description("게시글 내용"),
+                    fieldWithPath("memberId").type(JsonFieldType.NUMBER).description("회원 식별번호")
                 ),
                 responseFields(
                     fieldWithPath("author").type(JsonFieldType.STRING).description("게시글 작성자"),
                     fieldWithPath("title").type(JsonFieldType.STRING).description("게시글 제목"),
-                    fieldWithPath("content").type(JsonFieldType.STRING).description("게시글 내용")
+                    fieldWithPath("content").type(JsonFieldType.STRING).description("게시글 내용"),
+                    fieldWithPath("memberId").type(JsonFieldType.NUMBER).description("회원 식별번호")
                 )
             )
         )
