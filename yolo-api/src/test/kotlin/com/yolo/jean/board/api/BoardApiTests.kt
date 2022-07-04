@@ -5,6 +5,8 @@ import com.yolo.jean.board.dto.BoardDto
 import com.yolo.jean.doc.ApiDocumentUtils.Companion.getDocumentRequest
 import com.yolo.jean.doc.ApiDocumentUtils.Companion.getDocumentResponse
 import com.yolo.jean.doc.RestDocumentTests
+import com.yolo.jean.domain.board.entity.Board
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -29,6 +31,13 @@ class BoardApiTests: RestDocumentTests() {
     lateinit var objectMapper: ObjectMapper
 
     val memberId: Long = 1
+
+    @DisplayName("게시글을 생성한다.")
+    @Test
+    fun 게시글을_생성한다() {
+        val board = Board("진", "TDD", "테스트 코드를 작성한다.")
+        assertThat(board).extracting("title").isEqualTo("TDD")
+    }
 
     @DisplayName("BoardApi TEST01 - 게시글 조회 테스트")
     @Test

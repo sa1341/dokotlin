@@ -79,7 +79,7 @@ subprojects {
                 limit {
                     counter = "BRANCH"
                     value = "COVEREDRATIO"
-                    minimum = "0.10".toBigDecimal()
+                    minimum = "0.80".toBigDecimal()
                 }
 
                 limit {
@@ -94,7 +94,6 @@ subprojects {
 
         var excludes = mutableListOf<String>()
         excludes.add("com/yolo/jean/config")
-        excludes.add("com/yolo/jean/global")
         excludes.add("com/yolo/jean/global")
         excludes.add("com/yolo/jean/reply/service/ReplyService.class")
         excludes.add("com/yolo/jean/board/service/BoardSearchService.class")

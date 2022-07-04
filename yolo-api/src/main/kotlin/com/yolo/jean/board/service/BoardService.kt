@@ -24,8 +24,7 @@ class BoardService(
     @Transactional(readOnly = true)
     fun findBoardById(id: Long): BoardDto.Res {
 
-        val board = boardRepository
-            .findByIdOrNull(id)
+        val board = boardRepository.findByIdOrNull(id)
 
        return board?.let {
             BoardDto.Res(it.id, it.author, it.title, it.content,
