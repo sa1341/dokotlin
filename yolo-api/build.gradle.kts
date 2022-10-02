@@ -5,7 +5,6 @@ plugins {
 extra["springCloudVersion"] = "Hoxton.SR5"
 
 dependencies {
-    //api("org.springframework.boot:spring-boot-starter-data-redis")
     //api("org.springframework.boot:spring-boot-starter-webflux")
     api(project(":yolo-domain"))
     implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
@@ -23,6 +22,7 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
     }
+    testImplementation(project(":yolo-domain"))
 }
 
 dependencyManagement {

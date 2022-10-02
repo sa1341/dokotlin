@@ -15,6 +15,7 @@ noArg {
 }
 
 dependencies {
+    api("org.springframework.boot:spring-boot-starter-data-redis")
     api("org.springframework.boot:spring-boot-starter-data-jpa")
     api("com.querydsl:querydsl-jpa")
     api(group = "com.querydsl", name = "querydsl-apt", classifier = "jpa")

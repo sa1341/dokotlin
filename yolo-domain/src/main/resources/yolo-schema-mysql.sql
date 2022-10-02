@@ -1,3 +1,15 @@
+create table member
+(
+    id bigint not null auto_increment,
+    email varchar(255) not null,
+    name  varchar(255) not null,
+    age INT,
+    `created_at` DATETIME NOT NULL COMMENT 'created time',
+    `updated_at` DATETIME NOT NULL COMMENT 'last modified time',
+    primary key (id)
+) engine=InnoDB;
+
+
 create table board
 (
     id bigint not null auto_increment,
