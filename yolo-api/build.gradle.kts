@@ -9,7 +9,7 @@ dependencies {
     api(project(":yolo-domain"))
     implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
     implementation ("io.springfox:springfox-boot-starter:3.0.0")
-    implementation("org.springframework.kafka:spring-kafka")
+  //  implementation("org.springframework.kafka:spring-kafka")
     implementation("org.springframework.boot:spring-boot-starter-cache")
     implementation("org.ehcache:ehcache:3.8.0")
     implementation("javax.cache:cache-api:1.0.0")

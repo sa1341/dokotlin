@@ -1,7 +1,7 @@
 package com.yolo.jean.board.api
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.yolo.jean.board.dto.BoardDto
+import com.yolo.jean.api.board.dto.BoardDto
 import com.yolo.jean.doc.ApiDocumentUtils.Companion.getDocumentRequest
 import com.yolo.jean.doc.ApiDocumentUtils.Companion.getDocumentResponse
 import com.yolo.jean.doc.RestDocumentTests
@@ -12,20 +12,20 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders
-import org.springframework.restdocs.payload.FieldDescriptor
 import org.springframework.restdocs.payload.JsonFieldType
-import org.springframework.restdocs.payload.PayloadDocumentation.*
+import org.springframework.restdocs.payload.PayloadDocumentation.responseFields
+import org.springframework.restdocs.payload.PayloadDocumentation.requestFields
+import org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath
 import org.springframework.restdocs.request.RequestDocumentation.parameterWithName
 import org.springframework.restdocs.request.RequestDocumentation.pathParameters
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 @SpringBootTest
-class BoardApiTests: RestDocumentTests() {
+class BoardApiTests : RestDocumentTests() {
 
     @Autowired
     lateinit var objectMapper: ObjectMapper
@@ -35,6 +35,7 @@ class BoardApiTests: RestDocumentTests() {
     @DisplayName("게시글을 생성한다.")
     @Test
     fun 게시글을_생성한다() {
+        println("test data = ${testData.content}")
         val board = Board("진", "TDD", "테스트 코드를 작성한다.")
         assertThat(board).extracting("title").isEqualTo("TDD")
     }
@@ -42,9 +43,8 @@ class BoardApiTests: RestDocumentTests() {
     @DisplayName("BoardApi TEST01 - 게시글 조회 테스트")
     @Test
     fun 게시글을_조회한다() {
-
         // given
-        val boardId: Long = 18;
+        val boardId: Long = 18
         val responseBody = BoardDto("임준영", "22년도 대박기원", "주식도 흥하자!", memberId)
         mockMvc.perform(
             RestDocumentationRequestBuilders.get("/api/v1/boards/{id}", boardId)
@@ -58,7 +58,8 @@ class BoardApiTests: RestDocumentTests() {
         ).andExpect(
             jsonPath("$.content").value(responseBody.content)
         ).andDo(
-            document("board/getBoard",
+            document(
+                "board/getBoard",
                 getDocumentRequest(),
                 getDocumentResponse(),
                 pathParameters(
@@ -80,7 +81,6 @@ class BoardApiTests: RestDocumentTests() {
     @DisplayName("BoardApi TEST02 - 게시글 저장 테스트")
     @Test
     fun 게시글을_저장한다() {
-
         // given
         val boardDto = BoardDto("임준영", "화이팅하자..", "증권 대박나즈아!!!", memberId)
         val content = objectMapper.writeValueAsString(boardDto)
@@ -96,7 +96,8 @@ class BoardApiTests: RestDocumentTests() {
         ).andExpect(
             jsonPath("$.title").value(boardDto.title)
         ).andDo(
-            document("board/save-board",
+            document(
+                "board/save-board",
                 getDocumentRequest(),
                 getDocumentResponse(),
                 requestFields(

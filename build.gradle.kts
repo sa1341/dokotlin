@@ -13,7 +13,7 @@ allprojects {
         mavenCentral()
     }
 
-    group = "com.yolo.jean"    // 그룹명을 명시, 빌드시에 생략되도 영향이 없음.
+    group = "com.yolo.jean" // 그룹명을 명시, 빌드시에 생략되도 영향이 없음.
     version = "0.0.1-SNAPSHOT" // bootJar Task 단계에서 생성된 jar 버전명을 명시함.
 }
 
@@ -67,8 +67,8 @@ subprojects {
 
         var Qdomains = mutableListOf<String>()
 
-        for (qPattern in 'A' .. 'Z') {
-            Qdomains.add("*.Q${qPattern}*")
+        for (qPattern in 'A'..'Z') {
+            Qdomains.add("*.Q$qPattern*")
         }
 
         violationRules {
@@ -128,7 +128,6 @@ subprojects {
         enabled = false
     }
 
-
     tasks.jar {
         enabled = true
     }
@@ -137,7 +136,3 @@ subprojects {
 tasks.bootJar {
     enabled = false
 }
-
-
-
-

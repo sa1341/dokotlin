@@ -3,12 +3,13 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/dokotlin?useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul
     username: root
     password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     open-in-view: true
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     properties:
       hibernate:
         show_sql: true
@@ -16,8 +17,8 @@ spring:
 
 logging:
   level:
-    org.hibernate.SQL: debug
-    com.yolo.jean: debug
-    org.hibernate.type: trace
+    org.hibernate.SQL: info
+    com.yolo.jean: info
+    org.hibernate.type: info
 
 

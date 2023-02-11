@@ -14,8 +14,11 @@ spring:
     host: localhost
     port: 6379
 
+  jackson:
+    default-property-inclusion: non_null
+
 server:
-  port: 8080
+  port: 8082
 
 kafka:
   hosts: localhost:9092
@@ -28,7 +31,6 @@ yolo:
   service:
     host: 192.168.0.13
     port: 1341
-
 
 eureka:
   client:

@@ -1,0 +1,32 @@
+package com.yolo.jean.api.global.common.model
+
+import org.slf4j.LoggerFactory
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Sort
+
+class PageRequest {
+
+    private val log = LoggerFactory.getLogger(this.javaClass)
+
+    var page: Int = 1
+        set(value) {
+            field = if (value <= 0) 1 else value
+        }
+
+    var size: Int = 10
+        set(value) {
+            log.debug("value: $value")
+            field = if (value > DEFAULT_MAX_SIZE) DEFAULT_SIZE else value
+        }
+
+    var direction: Sort.Direction = Sort.Direction.ASC
+
+    companion object {
+        const val DEFAULT_SIZE = 10
+        const val DEFAULT_MAX_SIZE = 50
+    }
+
+    fun of(): PageRequest {
+        return PageRequest.of(page - 1, size, direction, "createdAt")
+    }
+}
