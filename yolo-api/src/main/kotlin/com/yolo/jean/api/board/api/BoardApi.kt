@@ -38,7 +38,7 @@ class BoardApi(
     fun getBoard(@Parameter(description = "게시글 번호", required = true, example = "1")
                  @PathVariable(value = "id") id: Long): ResponseEntity<BoardDto.Res> {
         log.info("id: [{}]", id)
-        val boardRes = boardService.findBoardById(id)
+        val boardRes= boardService.findBoardById(id)
         return ResponseEntity.ok(boardRes)
     }
 

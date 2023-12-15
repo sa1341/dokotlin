@@ -11,5 +11,6 @@ import kotlin.annotation.AnnotationTarget.FILE
 @Import(
     YoloJpaConfig::class,
     YoloDatasourceConfig::class,
-    QueryDslConfiguration::class)
+    QueryDslConfiguration::class
+)
 annotation class EnableYoloDomain()

@@ -1,4 +1,4 @@
-package com.yolo.jean.doc
+package com.yolo.jean.api.doc
 
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.extension.ExtendWith

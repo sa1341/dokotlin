@@ -1,9 +1,8 @@
-package com.yolo.jean.fund.repository
+package com.yolo.jean.api.fund.repository
 
 import com.yolo.jean.domain.fund.entity.FundAccount
 import com.yolo.jean.domain.fund.entity.FundPrimaryKeys
 import com.yolo.jean.domain.fund.repository.FundAccountRepository
-import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -18,14 +17,14 @@ class FundAccountRepositoryTest {
     lateinit var fundAccountRepository: FundAccountRepository
 
     @BeforeEach
-  /*  fun createFundAccountTest() {
+    fun createFundAccountTest() {
         // given
         val fundPrimaryKeys = FundPrimaryKeys("02000162758", 1)
         val fundAccount = FundAccount(fundPrimaryKeys, "207001", 10000)
 
         // when
         fundAccountRepository.save(fundAccount)
-    }*/
+    }
 
     @Test
     @DisplayName(value = "펀드 계좌번호를 조회한다.")

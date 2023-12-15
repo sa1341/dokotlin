@@ -21,8 +21,7 @@ const val basePackages = "com.yolo.jean.domain"
     entityManagerFactoryRef = "entityManagerFactory",
     transactionManagerRef = "transactionManager"
 )
-class YoloJpaConfig(
-) {
+class YoloJpaConfig() {
 
     @Bean
     fun entityManagerFactory(
@@ -35,7 +34,8 @@ class YoloJpaConfig(
             .dataSource(dataSource)
             .properties(
                 hibernateProperties.determineHibernateProperties(
-                    jpaProperties.properties, HibernateSettings()
+                    jpaProperties.properties,
+                    HibernateSettings()
                 )
             )
             .packages(basePackages)

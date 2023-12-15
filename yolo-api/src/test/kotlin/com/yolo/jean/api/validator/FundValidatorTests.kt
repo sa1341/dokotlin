@@ -1,4 +1,4 @@
-package com.yolo.jean.validator
+package com.yolo.jean.api.validator
 
 import com.yolo.jean.api.fund.dto.FundInfo
 import com.yolo.jean.api.global.common.util.FundInputValidator

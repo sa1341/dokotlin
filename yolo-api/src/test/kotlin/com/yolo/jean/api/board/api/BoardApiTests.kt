@@ -1,10 +1,10 @@
-package com.yolo.jean.board.api
+package com.yolo.jean.api.board.api
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.yolo.jean.api.board.dto.BoardDto
-import com.yolo.jean.doc.ApiDocumentUtils.Companion.getDocumentRequest
-import com.yolo.jean.doc.ApiDocumentUtils.Companion.getDocumentResponse
-import com.yolo.jean.doc.RestDocumentTests
+import com.yolo.jean.api.doc.ApiDocumentUtils.Companion.getDocumentRequest
+import com.yolo.jean.api.doc.ApiDocumentUtils.Companion.getDocumentResponse
+import com.yolo.jean.api.doc.RestDocumentTests
 import com.yolo.jean.domain.board.entity.Board
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
@@ -15,9 +15,9 @@ import org.springframework.http.MediaType
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders
 import org.springframework.restdocs.payload.JsonFieldType
-import org.springframework.restdocs.payload.PayloadDocumentation.responseFields
-import org.springframework.restdocs.payload.PayloadDocumentation.requestFields
 import org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath
+import org.springframework.restdocs.payload.PayloadDocumentation.requestFields
+import org.springframework.restdocs.payload.PayloadDocumentation.responseFields
 import org.springframework.restdocs.request.RequestDocumentation.parameterWithName
 import org.springframework.restdocs.request.RequestDocumentation.pathParameters
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
@@ -26,7 +26,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 @SpringBootTest
 class BoardApiTests : RestDocumentTests() {
-
     @Autowired
     lateinit var objectMapper: ObjectMapper
 
@@ -35,7 +34,6 @@ class BoardApiTests : RestDocumentTests() {
     @DisplayName("게시글을 생성한다.")
     @Test
     fun 게시글을_생성한다() {
-        println("test data = ${testData.content}")
         val board = Board("진", "TDD", "테스트 코드를 작성한다.")
         assertThat(board).extracting("title").isEqualTo("TDD")
     }

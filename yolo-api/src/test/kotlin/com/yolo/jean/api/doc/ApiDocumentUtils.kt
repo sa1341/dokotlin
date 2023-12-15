@@ -1,4 +1,4 @@
-package com.yolo.jean.doc
+package com.yolo.jean.api.doc
 
 import org.springframework.restdocs.operation.preprocess.OperationRequestPreprocessor
 import org.springframework.restdocs.operation.preprocess.OperationResponsePreprocessor
@@ -6,7 +6,6 @@ import org.springframework.restdocs.operation.preprocess.Preprocessors.modifyUri
 import org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessRequest
 import org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse
 import org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint
-
 
 open class ApiDocumentUtils {
 
